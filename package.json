@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js"
   },
   "repository": {
@@ -20,5 +20,11 @@
   "homepage": "https://github.com/khanhlam90/zookeepr#readme",
   "dependencies": {
     "express": "^4.17.2"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {
+    "jest": "^27.4.5"
   }
 }
