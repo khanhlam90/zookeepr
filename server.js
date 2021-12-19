@@ -9,6 +9,10 @@ const app = express();
 const fs = require('fs');
 const path = require('path'); //module of node.js
 
+//we dont have to create a route for every front-end asset (css, js, etc.) like how we create routes for index.html
+//therefore, we can use more Express.js middleware to instruct server to make certain files readily available
+app.use(express.static('public'));
+
 // parse incoming string or array data -  middleware functions need to be set up every time you create a server that's looking to accept POST data.
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data - POST
@@ -124,8 +128,26 @@ app.post('/api/animals', (req, res) => {
   res.json(animal);
   }
 });
-
 // allow user to add data 11.2 - end
+
+// 11.3.4 create routes to serve index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+//11.3.6 create routes to serve animals.html
+app.get('/animals', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+//11.3.6 create routes to serve zookeepers.html
+app.get('/zookeepers', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+//wildcard routes - * = wildcard - meaning any route that wasn't previously defined will fall under this request and will receive the homepage as the response
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
